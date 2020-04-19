@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.1.2 (Python 3.6.6 on win32)" generated="20200418 23:14:25.384" rpa="false">
+<suite id="s1" name="MyRobotProject" source="C:\Robot_framework\Robot_Projects\MyRobotProject">
+<suite id="s1-s1" name="Nokia TestCase" source="C:\Robot_framework\Robot_Projects\MyRobotProject\Nokia_TestCase">
+<suite id="s1-s1-s1" name="PMNEACVerification TC5" source="C:\Robot_framework\Robot_Projects\MyRobotProject\Nokia_TestCase\PMNEACVerification_TC5.robot">
+<test id="s1-s1-s1-t1" name="LaunchBrowser and Login to app">
+<kw name="lanuchBrowser and login" library="pmresources">
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<arguments>
+<arg>${url}</arg>
+<arg>${browser}</arg>
+</arguments>
+<msg timestamp="20200418 23:14:26.496" level="INFO">Opening browser 'chrome' to base url 'https://clab689lbwas.netact.nsn-rdnet.net/authentication/Login'.</msg>
+<status status="PASS" starttime="20200418 23:14:26.495" endtime="20200418 23:14:32.447"></status>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20200418 23:14:32.449" endtime="20200418 23:14:33.587"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://*[@id="details-button"]</arg>
+</arguments>
+<msg timestamp="20200418 23:14:33.589" level="INFO">Clicking element 'xpath://*[@id="details-button"]'.</msg>
+<status status="PASS" starttime="20200418 23:14:33.588" endtime="20200418 23:14:33.683"></status>
+</kw>
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://*[@id="proceed-link"]</arg>
+</arguments>
+<msg timestamp="20200418 23:14:33.685" level="INFO">Clicking link 'xpath://*[@id="proceed-link"]'.</msg>
+<status status="PASS" starttime="20200418 23:14:33.684" endtime="20200418 23:15:57.150"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>3</arg>
+</arguments>
+<msg timestamp="20200418 23:16:00.154" level="INFO">Slept 3 seconds</msg>
+<status status="PASS" starttime="20200418 23:15:57.151" endtime="20200418 23:16:00.154"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>${Nct_usrxpath}</arg>
+<arg>naresh</arg>
+</arguments>
+<msg timestamp="20200418 23:16:00.156" level="INFO">Typing text 'naresh' into text field '//input[@id='login:username']'.</msg>
+<status status="PASS" starttime="20200418 23:16:00.155" endtime="20200418 23:16:00.341"></status>
+</kw>
+<kw name="Input Password" library="SeleniumLibrary">
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<arguments>
+<arg>${Nct_pwdxpath}</arg>
+<arg>Nokia_12345</arg>
+</arguments>
+<msg timestamp="20200418 23:16:00.343" level="INFO">Typing password into text field '//input[@id='login:password']'.</msg>
+<msg timestamp="20200418 23:16:00.421" level="INFO">Temporally setting log level to: NONE</msg>
+<msg timestamp="20200418 23:16:00.622" level="INFO">Log level changed from NONE to INFO.</msg>
+<status status="PASS" starttime="20200418 23:16:00.343" endtime="20200418 23:16:00.623"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>${login_ele}</arg>
+</arguments>
+<msg timestamp="20200418 23:16:00.627" level="INFO">Clicking element '//input[@id='login:loginButton']'.</msg>
+<status status="PASS" starttime="20200418 23:16:00.625" endtime="20200418 23:18:31.454"></status>
+</kw>
+<status status="PASS" starttime="20200418 23:14:26.494" endtime="20200418 23:18:31.460"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>3</arg>
+</arguments>
+<msg timestamp="20200418 23:18:34.473" level="INFO">Slept 3 seconds</msg>
+<status status="PASS" starttime="20200418 23:18:31.464" endtime="20200418 23:18:34.476"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://*[@id="login:legalPanelCloseButton"]</arg>
+</arguments>
+<msg timestamp="20200418 23:18:34.484" level="INFO">Clicking element 'xpath://*[@id="login:legalPanelCloseButton"]'.</msg>
+<status status="PASS" starttime="20200418 23:18:34.478" endtime="20200418 23:18:39.858"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>3</arg>
+</arguments>
+<msg timestamp="20200418 23:18:42.863" level="INFO">Slept 3 seconds</msg>
+<status status="PASS" starttime="20200418 23:18:39.860" endtime="20200418 23:18:42.865"></status>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click the element identified by ``locator``.</doc>
+<arguments>
+<arg>xpath://*[@id="calypso-container"]/div[2]/div/a[5]/div/span</arg>
+</arguments>
+<msg timestamp="20200418 23:18:42.872" level="INFO">Clicking element 'xpath://*[@id="calypso-container"]/div[2]/div/a[5]/div/span'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20200418 23:18:43.824" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20200418 23:18:42.953" endtime="20200418 23:18:43.824"></status>
+</kw>
+<msg timestamp="20200418 23:18:43.851" level="FAIL">Element with locator 'xpath://*[@id="calypso-container"]/div[2]/div/a[5]/div/span' not found.</msg>
+<status status="FAIL" starttime="20200418 23:18:42.868" endtime="20200418 23:18:43.852"></status>
+</kw>
+<status status="FAIL" starttime="20200418 23:14:26.492" endtime="20200418 23:18:43.853" critical="yes">Element with locator 'xpath://*[@id="calypso-container"]/div[2]/div/a[5]/div/span' not found.</status>
+</test>
+<status status="FAIL" starttime="20200418 23:14:25.589" endtime="20200418 23:18:43.854"></status>
+</suite>
+<status status="FAIL" starttime="20200418 23:14:25.582" endtime="20200418 23:18:43.858"></status>
+</suite>
+<status status="FAIL" starttime="20200418 23:14:25.529" endtime="20200418 23:18:43.860"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1">Critical Tests</stat>
+<stat pass="0" fail="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" id="s1" name="MyRobotProject">MyRobotProject</stat>
+<stat pass="0" fail="1" id="s1-s1" name="Nokia TestCase">MyRobotProject.Nokia TestCase</stat>
+<stat pass="0" fail="1" id="s1-s1-s1" name="PMNEACVerification TC5">MyRobotProject.Nokia TestCase.PMNEACVerification TC5</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

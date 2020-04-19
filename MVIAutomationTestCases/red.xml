@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<projectConfiguration>
+    <configVersion>2</configVersion>
+    <relativeTo>WORKSPACE</relativeTo>
+    <variable name="${Resource}" value="value"/>
+    <referencedLibrary type="PYTHON" name="SeleniumLibrary" path="C:/Users/marthand/AppData/Local/Programs/Python/Python36/Lib/site-packages/SeleniumLibrary/__init__.py" dynamic="false"/>
+    <referencedLibrary type="PYTHON" name="SSHLibrary" path="C:/Users/marthand/AppData/Local/Programs/Python/Python36/Lib/site-packages/SSHLibrary/__init__.py" dynamic="false"/>
+    <referencedLibrary type="PYTHON" name="StringFormat" path="C:/Users/marthand/AppData/Local/Programs/Python/Python36/Lib/site-packages/StringFormat/__init__.py" dynamic="false"/>
+    <pythonpath/>
+    <classpath/>
+    <excludedForValidation/>
+    <isValidatedFileSizeCheckingEnabled>true</isValidatedFileSizeCheckingEnabled>
+    <validatedFileMaxSize>1024</validatedFileMaxSize>
+</projectConfiguration>
