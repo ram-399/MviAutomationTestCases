@@ -1,0 +1,65 @@
+Server data:
+       host_name:  10.32.237.58
+       user_name:  naresh
+       password:  Nokia_12345
+#-----------Real Data Testing------------  
+clab492_info:
+  host_ip: 10.32.210.119
+  user_name: omc
+  password: Arthur_321
+clab689_info:
+  host_ip: 10.32.237.58
+  user_name: naresh
+  password: Nokia_12345
+clab689_omcinfo:
+  host_ip: 10.32.237.58
+  user_name: omc
+  password: Arthur_987
+clab202_info:
+  host_ip: 10.93.110.123
+  user_name: omc
+  password: omc 
+oib_alarm:
+  oib_alarm: PCF FM adaptation (com.nokia.pcf)  
+test_package_info:
+  platform_name: BCMT
+  platform_ver: '1.0'
+  product_name: XXXX
+  product_ver: '1.0'
+  runTime_OS_name: redhat
+  runTime_OS_ver: '1.0'
+  testPackage_name: XXXX
+  testPackage_ver: '1.0'
+  test_tool_arg: "-e AAA"
+  test_tool_name: robot
+  test_tool_ver: '1.0'
+simulators:
+- image_url: 
+  number_of_instances: 1
+  simulator_name: SIPp
+- image_url: 
+  number_of_instances: 1
+  simulator_name: IPSL
+simulatorip:
+  simulator_ip: 10.32.237.55 
+tp_parameters:
+  para1: '...'
+  para2: '...'
+  paraN: '...'
+sut_parameters:
+  access_point: 255.1.1.1
+  ssh_key: private SSH Key
+  user_name: user name to log on server
+  user_password: passsword to log on server
+  platform_info:
+  - access_point: 255.1.1.2
+  - ssh_key: private SSH Key
+  - user_name: user name to log on server
+  - user_password: passsword to log on server
+  paraX: '...'
+  paraY: '...'
+  paraZ: '...'
+
+
+
+      
