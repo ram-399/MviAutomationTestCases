@@ -4,7 +4,7 @@ Resource    ../Resource/pmresources.robot
 
 *** Test Cases ***
 LaunchBrowser and Login to app
-    lanuchBrowser and login
+    
     Sleep    3    
     Click Element    xpath://*[@id="login:legalPanelCloseButton"]
     Sleep    3 

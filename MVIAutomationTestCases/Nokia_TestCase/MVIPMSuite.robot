@@ -167,7 +167,7 @@ PMRawDataCollection_TC6
      Write  scp A20200417.0755+0200-0800+0205.xml root@clab689node12:/var/opt/nokia/oss/global/isdk/packages/mdk/collectedFiles/Collector001/PLMN-PLMN/NCAAA-1/TIPAM-1/home
      ${output}=    Read  delay=5s
      log  ${output}
-     Write   ${cpmmon_med}
+     Write   ${common_med}
      ${output}=  Read    delay=7s
      @{str1}=    Split String    ${output}    -
      @{result}=    Split String    @{str1}[1]    ${SPACE}

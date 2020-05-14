@@ -1,30 +1,34 @@
 *** Settings ***
 Library      SSHLibrary
-Resource    ../Resource/fmresources.robot
+Resource    ../Resource/pmresources.robot
+Variables    ../Resource/parameters.yaml
 Library    String 
 Library    Collections  
-Suite Setup            Open Connection And Log In
+Suite Setup            Open SSH Connection And Login To Server  ${clab689_info.host_ip}  ${clab689_info.user_name}  ${clab689_info.password}
 Suite Teardown         Close All Connections      
 
 
 *** Test Cases ***
 PMRawDataCollection_TC6
-     Open Connection And Log In
-     write    sudo su
-     Read    delay=2s
-     Write   /opt/cpf/sbin/netact_status.sh status | grep common_mediations
-     ${output}=  Read    delay=5s
-     @{str1}=    Split String    ${output}    -
-     @{result}=    Split String    @{str1}[1]    ${SPACE}
-    #Log To Console        @{result}[0]
-     ${ssh_commed}=  Get From List  ${result}  0
-     Log To Console    ${ssh_commed} 
-     Write  ssh ${ssh_commed}
-     Read    delay=1s
-     Write   cd /var/opt/nokia/oss/global/isdk/packages/mdk/collectedFiles_PUT 
+    [Documentation]    PMRawDataCollection   
+    [Tags]    TC_6
+     Change Root User
+     Write  cd /home/naresh/tmp
+     Write   ls -lrt 
+     ${raw_file}=  Read    delay=2s
+     ${raw_file1}=    Run Keyword And Return Status  Should Contain  ${raw_file}  A20200417.0755+0200-0800+0205.xml  
+     
+     #${length}=  Get Length    ${raw_file}  
+     Run Keyword if  ${raw_file1}  log  rawfile is exist under the tmp directory
+     ...  ELSE  fail  rawfile is not exist under the tmp directory!
+     
+     Write  scp A20200417.0755+0200-0800+0205.xml root@clab689node12:/var/opt/nokia/oss/global/isdk/packages/mdk/collectedFiles/Collector001/PLMN-PLMN/NCAAA-1/TIPAM-1/home
+     ${output}=    Read  delay=5s
+     log  ${output}
+     Get Common Mediation Node 
+     Write   ${rawfile_dir} 
      Write   ls -lrt  
      ${pdf_output}=    Read    delay=5s 
-     Log To Console        ${pdf_output} 
-     ${result}=    Run Keyword And Return Status    Should Contain    ${pdf_output}    com.nokia.ipam_20         
-     Run Keyword If    ${result}    Log     com.nokia.ipam_20 Raw Data collection file is listed        
-     ...    ELSE  fail    No Raw Data collection file is installed! 
+     ${result}=    Run Keyword And Return Status    Should Contain    ${pdf_output}    A20200417.0755+0200-0800+0205.xml        
+     Run Keyword If    ${result}    Log    Raw Data file is copined into the desired location!        
+     ...    ELSE  fail    Raw Data file is not copined into the desired location! 

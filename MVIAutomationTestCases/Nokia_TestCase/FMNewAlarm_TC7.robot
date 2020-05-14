@@ -8,7 +8,7 @@ Library      ExcelLibrary
 Library    String 
 Library    Collections
 Library    DateTime  
-Suite Setup            Open SSH Connection And Login To Server      
+Suite Setup     Open SSH Connection And Login To Server      
 Suite Teardown  Run KeyWords
 ...             Close All Connections    AND
 ...             Close All Excel Documents
@@ -29,13 +29,9 @@ FMNewAlarm_TC7
       Write  ssh clab689node12
       Write  grep -inr 'pcf' | grep -inr 'Matching alarms size 1' /var/opt/oss/log/nokianetworks-isdk-snmpfm/isdk_snmpfm_debug.log*
       ${output_common}=    Read  delay=10s
-     ${utc_date} =  Get Current Date  UTC
+    
    
-     ${server_date}=    Add Time To Date    ${utc_date}    03:00:00   
-     ${custom_date}=    Convert Date  ${server_date}  result_format=%Y-%m-%d-T%H
-     ${db_date_format}=   Convert Date  ${server_date}  result_format=%d.%m.%Y
-     ${minutes_from_date}=    Convert Date  ${server_date}  result_format=%M
-     ${minutes_in_int}=    Convert To Integer   ${minutes_from_date}    
+         
      
        @{split_lines}=    Split To Lines  ${output_common}  9
        @{result_list}=    Create List 

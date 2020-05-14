@@ -1,38 +1,42 @@
 *** Settings ***
 Library      SSHLibrary
-Resource    ../Resource/fmresources.robot
+Resource    ../Resource/pmresources.robot
+Variables    ../Resource/parameters.yaml
 Library    String 
 Library    Collections  
-Suite Setup            Open Connection And Log In
+Suite Setup            Open SSH Connection And Login To Server  ${clab492_info.host_ip}  ${clab492_info.user_name}  ${clab492_info.password}
 Suite Teardown         Close All Connections      
 
 
 *** Test Cases ***
 PMMADIPATestCase_TC3
-     Open Connection And Log In
-     write    sudo su
-     Read    delay=2s
-     Write   /opt/cpf/sbin/netact_status.sh status service rep_crons
-     ${output}=  Read    delay=5s
-     @{str1}=    Split String    ${output}    :
-     @{result}=    Split String    @{str1}[1]    ${SPACE}
-    #Log To Console        @{result}[0]
-     ${ssh_commed}=  Get From List  ${result}  0
-     Log To Console    ${ssh_commed} 
-     Write  ssh ${ssh_commed}
-     Read    delay=3s
-     Write    /usr/bin/nokia/ManageSS.pl --list UMAMAD MADIPA 
-     ${pdf_output}=    Read    delay=15s 
-     Log To Console        ${pdf_output}
-     Write    /usr/bin/nokia/ManageSS.pl --list UMAMAD MADIPA-DB
+    [Documentation]    Adaptation Installation:MADIBX
+    [Tags]    TC_3
+     #Change Root User
+     Get Repo Cron Node
+     Write    ${madipa} 
+     ${pdf_output}=    Read    delay=15s
+     ${pdf_result}=    Remove String Using Regexp    ${pdf_output}  ^[A-Z-.0-9\s]*  [\[a-z@0-9~\\s\$|#\]]* 
+   
+     #Log To Console        ${pdf_output}
+     Write    ${madipa_db}
+     
      ${pdf_output1}=    Read    delay=15s 
-     Log To Console        ${pdf_output1}
-     ${result}=    Run Keyword And Return Status    Should Contain    ${pdf_output}    (CONFIGURED) (ACTIVATED) (ACTIVE)        
-     Run Keyword If    ${result}    Log     MADIPA is Configured and Activated in NetAct!       
-     ...    ELSE  fail    MADIPA is not Configured and Activated in NetAct and it needs to be deployed
-     ${result1}=    Run Keyword And Return Status    Should Contain    ${pdf_output}    (CONFIGURED) (ACTIVATED) (ACTIVE)          
-     Run Keyword If    ${result1}    Log    MADIPA-DB is Configured and Activated in NetAct!       
-     ...    ELSE  fail    MADIPA-DB is not Configured and Activated in NetAct and it needs to be deployed    
+     ${pdf_result1}=    Remove String Using Regexp    ${pdf_output1}  ^[A-Z-.0-9\s]*  [\[a-z@0-9~\\s\$|#\]]*
+     #${pdf_result1}    Remove String Using Regexp    ${pdf_remove_startstring1}  [\[a-z@0-9~\\s\$|#\]]*
+     #Log To Console        ${pdf_output1}
+     ${result1}=    Run Keyword And Return Status    Should Match    ${pdf_result}    (CONFIGURED)(ACTIVATED)(ACTIVE)        
+     #Run Keyword If    ${result}  Log  MADIPA is Installed!           
+     #...    ELSE  Log    MADIPA is not Installed!
+     ${result2}=    Run Keyword And Return Status    Should Match    ${pdf_result1}    (CONFIGURED)(ACTIVATED)(ACTIVE)          
+     #Run Keyword If    ${result1}    Pass Execution If  ${result1}  MADIPA is installed          
+     #...    ELSE  Log    MADIPA-DB is not installed 
+     Run Keyword If    ${result1} and ${result2}    Log  MADIPA and MADIPA-DB are installed successfully
+     ...    ELSE IF    '${result1}' == 'True' and '${result2}' == 'False'   log  MADIPA-DB is not installed
+     ...    ELSE IF    '${result1}' == 'False' and '${result2}' == 'True'  log  MADIPA is not installed 
+     ...    ELSE    Log  MADIPA and MADIPA-DB are not installed
+      Run Keyword If    ${result1} and ${result2}  log  pass 
+      ...   ELSE  Fail  fail 
   
      
 

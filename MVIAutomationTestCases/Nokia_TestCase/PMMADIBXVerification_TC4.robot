@@ -1,34 +1,27 @@
 *** Settings ***
 Library      SSHLibrary
 Resource    ../Resource/pmresources.robot
+Variables    ../Resource/parameters.yaml
 Library    String 
 Library    Collections   
-Suite Setup            Open Connection And Log In
+Suite Setup             Open SSH Connection And Login To Server  ${clab689_info.host_ip}  ${clab689_info.user_name}  ${clab689_info.password}
 Suite Teardown         Close All Connections   
 
 
 *** Test Cases ***
-NASDA_Service_TC2
-    Open Connection And Log In
-     write    sudo su
-     Read    delay=2s
-     Write   /opt/cpf/sbin/netact_status.sh status | grep common_mediations
-     ${output}=  Read    delay=5s
-     @{str1}=    Split String    ${output}    -
-     @{result}=    Split String    @{str1}[1]    ${SPACE}
-    #Log To Console        @{result}[0]
-     ${ssh_commed}=  Get From List  ${result}  0
-     Log To Console    ${ssh_commed} 
-     Write  ssh ${ssh_commed}
-     Read    delay=5s
-     Write   sh /opt/oss/nokianetworks-isdk-platform/isdk_deployment_suite.sh --type MAPPINGCONFIG --list
-     ${output_ssh}=    Read    delay=10s
-     Log To Console    ${output_ssh}
-     Write    sh /opt/oss/nokianetworks-isdk-platform/isdk_deployment_suite.sh --type CONVERTER --list 
-              	
-     ${output_ssh1}=    Read    delay=10s
-    Log To Console     ${output_ssh1}
-    Write   sh /opt/oss/nokianetworks-isdk-platform/isdk_deployment_suite.sh --type COLLECTORCONFIG --list
-     ${output_ssh3}=    Read    delay=10s
-    Log To Console     ${output_ssh3}
+NASDA_Service_TC4
+     Change Root User
+     Get Common Mediation Node 
+     Write   ${mapping_config} 
+     ${mapconfig_output}=    Read    delay=15s
+     
+     ${result1}=    Run Keyword And Return Status    Should Contain   ${mapconfig_output}     com.nokia.ipam:20
+     Write    ${converter}          	
+     ${converter_output}=    Read    delay=10s
+      ${result2}=    Run Keyword And Return Status    Should Contain   ${converter_output}     com.nokia.ipam:20:PM
+     Write   ${collecter_config}
+     ${collecterconfig_output}=    Read    delay=10s
+     ${result3}=    Run Keyword And Return Status    Should Contain   ${collecterconfig_output}     com.nokia.ipam:20
+     Run Keyword If    ${result1} and ${result2} and ${result3}    Log  Collector com.nokia.ipam:20 is avaialable       
+    ...    ELSE  fail    Collector com.nokia.ipam:20 is not avaialable
                     

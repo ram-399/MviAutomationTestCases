@@ -1,54 +1,41 @@
 *** Settings ***
 Library      SSHLibrary
 Resource    ../Resource/pmresources.robot
-Suite Setup            Open Connection And Log In
+Variables    ../Resource/parameters.yaml
+Library    String    
+Library    Collections    
+Suite Setup            Open SSH Connection And Login To Server  ${clab689_info.host_ip}  ${clab689_info.user_name}  ${clab689_info.password}
 Suite Teardown         Close All Connections  
 *** Test Cases ***
-Verify the SSH Connection
-    Open Connection And Log In
-    Write  sudo su -
-    ${temp} =   Read    delay=1s    
-    #Should Contain    ${temp}   root
-    #${output}=    Execute Command    /opt/cpf/sbin/netact_status.sh status | grep common_mediations
-    #Log To Console    ${output}   
-    #Should Contain    ${output}    started
-    #Sleep    5 
-    Write  /opt/cpf/sbin/smanager.pl status | grep isdk
-    #${output1} =      Execute Command    /opt/cpf/sbin/smanager.pl status | grep isdk
-    ${output1}=   Read  delay=10s
-    Should Contain    ${output1}  started     
-        
-    #Sleep    8    
-    #Execute Command  sudo su -
-    #${isdk_oupput}=    Execute Command    /opt/cpf/sbin/smanager.pl status | grep isdk
-    #Log To Console        ${isdk_oupput}
-        
-        
-    #Should Contain    ${isdk_oupput}    started 
-    #${cmd}    Set Variable    /opt/cpf/sbin/smanager.pl status | grep "db_crons\|rep_crons"
-         
-    #${db_cmd}=   Execute Command    ${cmd} 
+PMNetactService_TC1
+    [Documentation]    NetAct Service Verification
+    [Tags]    TC_1
+    Write  sudo su -   
+    Read    delay=1s    
+    Write   ${netactpm_cmd}   
+    ${output}=  Read    delay=15s 
     
-    #${db_cmd}=   Wait Until Keyword Succeeds    1m    10s  Execute Command    ${cmd} 
-    #Sleep    5
-    #Log To Console    ${db_cmd} 
-       
-    #${cmd}    Set Variable  'db_crons\|rep_crons'         
-            
-    Write   "/opt/cpf/sbin/smanager.pl status | grep 'db_crons\|rep_crons'"
-    ${db_cmd} =     Read  delay=20s
-    Should Contain   ${db_cmd}  started     
-    Log To Console   ${db_cmd}  
-    #Write   /opt/cpf/sbin/smanager.pl status | grep rep_crons
-    #${rep_cmd} =     Read  delay=10s
-    #Should Contain   ${rep_cmd}  started     
-    #Log To Console   ${rep_cmd} 
+    @{split_list}=    Create List     
+     #Log To Console         ${output}
+    @{str1}=  Split To Lines  ${output}  0  -1 
     
-    #Should Contain    ${result}        started
-    #Sleep    5    
-    #${isdk_oupput}=    Execute Command    /opt/cpf/sbin/smanager.pl status | grep isdk
+    @{split_list}=    Create List     
+    # #${count}=    Get Length    ${str1}
+    # #Log To Console  ${count}
+    :FOR  ${j}  IN  @{str1}
+   #\    ${res}=  Strip String  ${j}
+    \    ${split_str}=    Remove String Using Regexp  ${j}  ([^a-z0-9_]|31m|01)
         
-    #Should Contain    ${isdk_oupput}    started 
+    \   Append To List  ${split_list}  ${split_str}    
+     @{result_list}=  Create List    
+     :FOR    ${cmdintre_value}  IN    @{split_list}
+     
+    \    ${v2}=    Run Keyword And Return Status    Should Contain  ${cmdintre_value}  started
+    \     Run Keyword If   ${v2}  Log  NASDA Object ${cmdintre_value} avaialable 
+     \     ...    ELSE  Append To List  ${result_list}  ${cmdintre_value}
+     ${result_count}=  Get Length    ${result_list}
+     Run Keyword If  ${result_count}==0    Pass Execution  NASDA Objects are available
+     ...    ELSE  Fail  NASDA Objects ${result_list} are not available
      
     
             
