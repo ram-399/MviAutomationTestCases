@@ -13,6 +13,8 @@ Suite Teardown         Close All Connections
 
 *** Test Cases ***
 FMAlarmClear_TC8
+     [Documentation]    FMAlarmClear
+     [Tags]    TC_8
      write    sudo su
      Read    delay=2s
      
@@ -25,7 +27,7 @@ FMAlarmClear_TC8
       Write  java -Djava.endorsed.dirs=. com.nsn.snmp.trap.TrapSimulator ${simulatorip.simulator_ip} 10.32.237.56 162 /home/omc/mdk-snmp-simulator/PCF_Clear.xml
       Read    delay=1s
       Write  ssh clab689node12
-      Write  grep -inr 'pcf' | grep -inr 'Matching alarms size 1' /var/opt/oss/log/nokianetworks-isdk-snmpfm/isdk_snmpfm_debug.log*
+      Write  ${alarmnew_logcmd}
       ${output_common}=    Read  delay=10s
      ${utc_date} =  Get Current Date  UTC
    
